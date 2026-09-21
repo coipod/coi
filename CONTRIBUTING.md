@@ -28,3 +28,5 @@ Record artwork source, author/attribution, generation or editing instructions, l
 ## Community
 
 Follow [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md). Report ordinary bugs through the issue template with sanitized diagnostics. Do not submit credentials, private project contents or raw CLI logs. A private operating/conduct contact is still being established: repository visibility must remain private until it exists. Security reporting instructions are in SECURITY.md.
+
+Refresh dependency inventories after dependency changes: `npm sbom --sbom-format cyclonedx > docs/release/npm-sbom.json` and `node scripts/dependency-inventory.mjs`. Review upstream license notices as well as metadata; do not copy machine-local Cargo paths into published inventories.

@@ -521,13 +521,14 @@ fn cleanup_expired(window: WebviewWindow, state: State<Core>) -> Result<workspac
 #[tauri::command]
 fn export_diagnostics(window: WebviewWindow) -> Result<String> {
     main_only(&window)?;
-    Ok(serde_json::json!({"app":"COI","version":env!("CARGO_PKG_VERSION"),"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"liveExecution":"blocked: no validated capability matrix","rawLogsStored":false}).to_string())
+    Ok(serde_json::json!({"app":"COI","version":env!("CARGO_PKG_VERSION"),"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"liveExecution":"version-gated; see docs/STATUS.md","rawLogsStored":false}).to_string())
 }
 #[tauri::command]
 fn dependency_notices(window: WebviewWindow) -> Result<String> {
     main_only(&window)?;
     Ok([
-        "Git inspection dependencies — unchanged upstream notices",
+        "Third-party dependencies — unchanged upstream notices",
+        include_str!("../../public/licenses/pixi-LICENSE-MIT.txt"),
         include_str!("../../public/licenses/git2-LICENSE-MIT.txt"),
         include_str!("../../public/licenses/libgit2-AUTHORS.txt"),
         include_str!("../../public/licenses/libgit2-COPYING.txt"),
