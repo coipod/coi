@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "asset": "../../apps/desktop/public/coi/expressions.png",
+  "type": "sprite-atlas",
+  "grid": {
+    "columns": 4,
+    "rows": 2
+  },
+  "states": {
+    "neutral": [
+      0,
+      0
+    ],
+    "greeting": [
+      1,
+      0
+    ],
+    "thinking": [
+      2,
+      0
+    ],
+    "working": [
+      3,
+      0
+    ],
+    "question": [
+      0,
+      1
+    ],
+    "success": [
+      1,
+      1
+    ],
+    "concerned": [
+      2,
+      1
+    ]
+  },
+  "source": "User-supplied COI plan v1.6 embedded character turnaround, followed by imagegen derivation on 2026-09-16",
+  "palette": {
+    "hair": "#f0f0f7",
+    "ink": "#273952",
+    "blue": "#519cdf",
+    "white": "#fbfcff"
+  },
+  "license": "CC-BY-4.0",
+  "rightsStatus": "owner-confirmed-2026-09-21",
+  "knownLimitations": [
+    "Complete-pose atlas with opaque background; not a layered Cubism model."
+  ],
+  "distribution": "Source distribution permitted under CC BY 4.0; third-party software is licensed separately.",
+  "activeRenderer": {
+    "asset": "../../apps/desktop/public/coi/expressions.png",
+    "renderer": "PixiJS continuous mesh with uniform aspect ratio",
+    "motion": "Bounded head tilt, breathing and small arm-region deformation; original complete poses preserved",
+    "limitations": [
+      "Not a Cubism Live2D rig",
+      "No independently articulated fingers or reconstructed hidden anatomy"
+    ]
+  },
+  "sd": {
+    "generationManifest": "sd-generation.json",
+    "master": "sd-originals/master.png",
+    "runtimeDirectory": "../../apps/desktop/public/coi/sd",
+    "stickers": [
+      "explain",
+      "find",
+      "fix",
+      "create",
+      "check",
+      "summarize"
+    ],
+    "derivations": {
+      "tool": "Tauri icon CLI",
+      "source": "../../apps/desktop/public/coi/sd/app-icon.png",
+      "native": "../../apps/desktop/src-tauri/icons",
+      "favicon": "../../apps/desktop/public/favicon.png"
+    },
+    "source": "Existing COI expression atlas; individual imagegen outputs referenced the complete SD master on 2026-09-20",
+    "assembly": "None; each sticker is an individually generated complete character"
+  },
+  "rightsBasis": "Project owner confirmed original design ownership and authorized CC BY 4.0 distribution on 2026-09-21.",
+  "attribution": "COI contributors — https://github.com/coipod/coi — CC BY 4.0",
+  "files": [
+    {
+      "path": "apps/desktop/public/coi/expressions.png",
+      "sha256": "b934a99f93e34f341d786344ea10676a00fb538264185c7f23f44d4bf8d714b5",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/app-icon.png",
+      "sha256": "d1cf1819c6f901002533a5f89eb191cf6323842bc20986f1131b53ff3c3f6d22",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/avatar.png",
+      "sha256": "56dc4b21b7372fc7d5e252eb195160fd4635e7880e04d01456cae2d5743b4a2d",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/check.png",
+      "sha256": "5e9a8cde0dbc5df46effb0be7c27e5b3a3cfc693cfb7e6dc4e6ae2d0bc36eb28",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/create.png",
+      "sha256": "12be14c299072d9a4c1d67821b5786bb80d8d343383b55f532dbcf8ce85c8f81",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/explain.png",
+      "sha256": "6dc57f77120dbe3e4eba5538b44a57abd00811f02a37a4363c4d54fc8a6b31f1",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/find.png",
+      "sha256": "372ea6a05bb4e206b7cdfccb2ddcad271600e5dbb0575963704cc292ba80938c",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/fix.png",
+      "sha256": "ab2c24fb0b5484679704d855e881807b489adc5bb3b7ac981d7ca146a8cbe3cf",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/coi/sd/summarize.png",
+      "sha256": "50b12d1e1082e0377dc72465f5601130624defb6ef7edb560c5922f6756c158b",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/public/favicon.png",
+      "sha256": "2639d07cfb8020fa14d3b292c1d3cc3f8761ed354fd02b75820ae8a38a516d02",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/128x128.png",
+      "sha256": "8545c239679f037e01d8ad570172d9a59baf2f6fe69642fb290a88a4723671aa",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/128x128@2x.png",
+      "sha256": "9a5def5bd5cd71c546c7609482ba97ccf1b522a4f6ce5ca6e9a48506c785b4f4",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/32x32.png",
+      "sha256": "64ef5075b2f5e807f9f83ee3731e73cdc02f3c1347b713a33eef46f3e64c407e",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/64x64.png",
+      "sha256": "2639d07cfb8020fa14d3b292c1d3cc3f8761ed354fd02b75820ae8a38a516d02",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square107x107Logo.png",
+      "sha256": "38bdb0ee0e3b3e977f6edd489f8a56f84806b60ebec95a97cd2d1874b0eb4e47",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square142x142Logo.png",
+      "sha256": "193c67c479cdf04b2cb286e3908f0ded5cbcd141418f8a298398dfa48fad8206",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square150x150Logo.png",
+      "sha256": "a9a1b9b8d7cd503b944103de5046493d5bf60a6d895c2a40ce209c3f20146d80",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square284x284Logo.png",
+      "sha256": "c2123c82d02e27e0fd1337e004d907f828a9ad6f10bceefd3ab255f9a24103ec",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square30x30Logo.png",
+      "sha256": "f007fbabb038a0ce27b219ae7f50548b3c6b9ff209a778484acdd740a201f9c0",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square310x310Logo.png",
+      "sha256": "32692ce9734010978aae4eea96a100c8d6c315bd3c29e25d11426563b0c4826b",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square44x44Logo.png",
+      "sha256": "88d21239126e371cdcc39a0805022929a04c1a00a85c1689774d939460332b55",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square71x71Logo.png",
+      "sha256": "14c3705dc32d58b592bc4b5b9e7ee4b8eb360627e0df82526e50ab5cc0e15fa8",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/Square89x89Logo.png",
+      "sha256": "36cef46481238c933a2a48ee568fbc3ea2c30ddbd85319e08bd066164c097043",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/StoreLogo.png",
+      "sha256": "9a0d3978bebab66f82be7662ef7b5efb812529b2e77fabb271e4dced1fc74a00",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/icon.icns",
+      "sha256": "fc08e46f3bb7160e0a31d1ef7ca3c6aaaecc0f40860b7f4f31b3d34122000693",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/icon.ico",
+      "sha256": "8e8fac9bee57e8a501ca7a640d1176b790a10cac75c4ef2ee45c6c7f37ddc61d",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "apps/desktop/src-tauri/icons/icon.png",
+      "sha256": "1e6f4bec46049b2ab5e9096840d1d223cc3af99f395d7c177f18c20f395857ea",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "assets/coi/sd-originals/master.png",
+      "sha256": "f8372da37b301305a02f888e61b309d4c63a46e772a1300f6924b0a1adc3791d",
+      "license": "CC-BY-4.0"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+name: Validate source distribution
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.22.0'
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e -- --workers=2
+      - run: npm audit --audit-level=moderate
+      - run: node scripts/secret-scan.mjs --tracked
+      - run: node scripts/gitleaks.mjs
+  rust-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87
+        with:
+          toolchain: '1.93.1'
+      - run: cargo install cargo-audit --version 0.22.2 --locked
+      - run: cargo audit --file apps/desktop/src-tauri/Cargo.lock
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            target: aarch64-apple-darwin
+            bundle: app
+          - runner: macos-15-intel
+            target: x86_64-apple-darwin
+            bundle: app
+          - runner: windows-2022
+            target: x86_64-pc-windows-msvc
+            bundle: nsis
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.22.0'
+          cache: npm
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87
+        with:
+          toolchain: '1.93.1'
+          targets: ${{ matrix.target }}
+          components: rustfmt, clippy
+      - run: npm ci --legacy-peer-deps
+      - run: cargo fmt --manifest-path apps/desktop/src-tauri/Cargo.toml --check
+      - run: cargo clippy --manifest-path apps/desktop/src-tauri/Cargo.toml --all-targets -- -D warnings
+      - run: npm run test:native
+      - run: npm run tauri -w @coi/desktop -- build --debug --target ${{ matrix.target }} --bundles ${{ matrix.bundle }}
+# No binary upload, provider login, real AI request or release publication.
+# Windows Server build/tests do not replace Windows 11 acceptance testing.

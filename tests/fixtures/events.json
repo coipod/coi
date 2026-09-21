@@ -1,0 +1,165 @@
+[
+  {
+    "schemaVersion": 1,
+    "id": "e1",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 1,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "run_started",
+    "payload": {
+      "mode": "review_copy",
+      "taskCopyId": "copy",
+      "baselineId": "base"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e2",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 2,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "assistant_delta",
+    "payload": {
+      "messageId": "m",
+      "text": "hello"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e3",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 3,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "activity",
+    "payload": {
+      "activityId": "a",
+      "phase": "started",
+      "type": "reading",
+      "target": "README.md"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e4",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 4,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "approval_requested",
+    "payload": {
+      "ref": {
+        "approvalId": "a",
+        "providerRequestId": "p",
+        "threadId": "t",
+        "turnId": "u"
+      },
+      "scope": "copy",
+      "risk": "L1",
+      "decisions": [
+        "allow_once",
+        "deny",
+        "cancel_run"
+      ],
+      "description": "Edit copy"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e5",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 5,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "approval_resolved",
+    "payload": {
+      "approvalId": "a",
+      "state": "accepted",
+      "actor": "user"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e6",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 6,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "verification_changed",
+    "payload": {
+      "status": "passed",
+      "checkId": "c",
+      "artifactHash": "hash",
+      "evidenceRef": "fixture",
+      "command": "demo:check",
+      "exitCode": 0,
+      "summary": "mock result"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e7",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 7,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "artifact_created",
+    "payload": {
+      "artifactId": "a",
+      "kind": "diff",
+      "relativePath": "README.md",
+      "contentHash": "hash"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e8",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 8,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "run_warning",
+    "payload": {
+      "code": "fixture",
+      "redactedMessage": "example",
+      "retryable": true
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "e9",
+    "sessionId": "s",
+    "runId": "r",
+    "seq": 9,
+    "timestamp": "2026-09-16T00:00:00Z",
+    "provider": "demo",
+    "origin": "demo",
+    "kind": "run_finished",
+    "payload": {
+      "status": "completed",
+      "reasonCode": "done",
+      "verification": "passed",
+      "pendingArtifacts": [
+        "a"
+      ]
+    }
+  }
+]

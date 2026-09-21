@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-20",
+  "tool": "built-in image_gen",
+  "reference": "apps/desktop/public/coi/expressions.png",
+  "assets": [
+    {
+      "id": "master",
+      "source": "imagegen:exec-68752702-fc34-4fe5-b1db-b1f6f4147762",
+      "prompt": "Use case: stylized-concept. Create ONE square transparent PNG master mascot reference of COI based on the supplied reference character. A charming two-heads-tall SD chibi, complete body fully visible centered with 8% margin. Huge head, silver-white flowing hair simplified into clear locks, bright blue eyes, navy </> code-shaped hair clip on viewer right, blue ribbon accents, white tech jacket with vivid blue edging over navy zip top and dark trousers, little boots. Friendly confident smile, relaxed hands at sides. Clean dark navy outlines, restrained soft cel shading, polished Japanese mobile-game sticker illustration. Preserve character identity but strongly simplify for small icons. Exactly two arms, two hands, two feet. No written text, no typography, no frame, no ground, no shadow outside character. Genuine transparent alpha background. This is an intact character, not a parts sheet.",
+      "file": "assets/coi/sd-originals/master.png",
+      "sha256": "f8372da37b301305a02f888e61b309d4c63a46e772a1300f6924b0a1adc3791d"
+    },
+    {
+      "id": "avatar",
+      "source": "imagegen:exec-857484d6-811f-47d0-806f-90bf9e6e83b5",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE close-up head portrait avatar of this exact SD character, face fills most of a square. Show entire crown of hair and navy code-shaped hair clip, blue eyes, small warm smile, only tiny shoulders. Simplify long hair into a compact rounded silhouette. Real transparent alpha background. No frame. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/avatar.png",
+      "sha256": "56dc4b21b7372fc7d5e252eb195160fd4635e7880e04d01456cae2d5743b4a2d"
+    },
+    {
+      "id": "app-icon",
+      "source": "imagegen:exec-bcafa667-1521-4ceb-aa22-5eacb645080f",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE premium macOS app icon for this exact SD character. Square 1024x1024 composition with pale ice blue softly shaded opaque background, close-up friendly face and silver hair fills 85% of square, entire code-shaped hair clip visible, tiny navy collar. Simplify silhouette and detailing so blue eyes and face read at 16 pixels. No text, no extra symbols, no badge, no rounded-square border baked in; edge-to-edge background.  Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/app-icon.png",
+      "sha256": "d1cf1819c6f901002533a5f89eb191cf6323842bc20986f1131b53ff3c3f6d22"
+    },
+    {
+      "id": "explain",
+      "source": "imagegen:exec-9fe39f60-9eef-45f0-af90-a885aa8265c2",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE full-body two-heads-tall SD sticker of this exact character holding an open navy book at chest height, cheerful explaining expression. Exactly two hands holding the book. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/explain.png",
+      "sha256": "6dc57f77120dbe3e4eba5538b44a57abd00811f02a37a4363c4d54fc8a6b31f1"
+    },
+    {
+      "id": "find",
+      "source": "imagegen:exec-90348764-6731-48cb-8f72-d8dcfd5e6e4a",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE full-body two-heads-tall SD sticker of this exact character holding a magnifying glass near one eye with one hand and the other hand resting on hip, curious investigative expression. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/find.png",
+      "sha256": "372ea6a05bb4e206b7cdfccb2ddcad271600e5dbb0575963704cc292ba80938c"
+    },
+    {
+      "id": "fix",
+      "source": "imagegen:exec-4406eaa6-c640-454e-9396-100dcc7dcf11",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE full-body two-heads-tall SD sticker of this exact character holding a small blue-handled wrench in one hand, other hand relaxed, determined friendly expression. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/fix.png",
+      "sha256": "ab2c24fb0b5484679704d855e881807b489adc5bb3b7ac981d7ca146a8cbe3cf"
+    },
+    {
+      "id": "create",
+      "source": "imagegen:exec-b104ed51-2f12-4d22-bc97-51f9f8736cd8",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE full-body two-heads-tall SD sticker of this exact character holding an unrolled blue blueprint with both hands, confident imaginative expression. Blueprint shows only simple white geometric shapes, no letters. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/create.png",
+      "sha256": "12be14c299072d9a4c1d67821b5786bb80d8d343383b55f532dbcf8ce85c8f81"
+    },
+    {
+      "id": "check",
+      "source": "imagegen:exec-fc12a5b0-1dfc-442c-8906-69e80555559e",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE full-body two-heads-tall SD sticker of this exact character holding a small clipboard with three blue check marks in one hand and a pencil in other hand, attentive confident expression. No letters. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/check.png",
+      "sha256": "5e9a8cde0dbc5df46effb0be7c27e5b3a3cfc693cfb7e6dc4e6ae2d0bc36eb28"
+    },
+    {
+      "id": "summarize",
+      "source": "imagegen:exec-3a59ae03-374d-48c3-9666-415497e56400",
+      "prompt": "Use case: stylized-concept. Reference image is the approved COI SD identity. Preserve face, silver-white hair, bright blue eyes, navy code hair clip on viewer right, blue ribbons, white/blue jacket over navy outfit, navy-blue shoes, and same clean navy outline and cel shading. ONE full-body two-heads-tall SD sticker of this exact character neatly gathering a small stack of pastel blue memo cards in both hands, satisfied gentle smile. Cards are blank, no letters. Genuine transparent alpha background, isolated individual asset centered in a square with 8% clear padding. No backdrop, no drop shadow, no text labels, no grid. For full-body stickers include both feet, compact tiny torso and legs, head half the total height; hands natural and fully attached. Produce one polished complete illustration, never separated parts.",
+      "file": "apps/desktop/public/coi/sd/summarize.png",
+      "sha256": "50b12d1e1082e0377dc72465f5601130624defb6ef7edb560c5922f6756c158b"
+    }
+  ]
+}
