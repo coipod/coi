@@ -5,6 +5,7 @@ Repository: https://github.com/coipod/coi — **private**. No installer release,
 ## Evidence
 
 - Initial reviewed source commit: `710fd8c4b3531637030c47b72d24dff79c12d82c`.
+- The initial Windows run exposed three synthetic CLI startup failures. Fixture paths now use the Cargo manifest ancestor directly, avoiding Windows verbatim paths from `canonicalize()` when invoking Node. Production capability gates are unchanged; the Windows rerun must pass before considering CI complete.
 - Initial remote run: https://github.com/coipod/coi/actions/runs/35611186895. Subsequent final-revision results are retained in [Actions](https://github.com/coipod/coi/actions/workflows/ci.yml); use the run matching the current commit, not an earlier green badge.
 - Local checks: TypeScript, ESLint, 19 unit tests, 29 browser E2E tests, Rust formatting, Clippy with warnings denied, and 45 Rust tests passed. Five authenticated/environment-specific tests remain explicitly ignored in ordinary CI.
 - A new private clone installed with the documented `npm ci --legacy-peer-deps`, passed `npm run check`, and built a debug macOS Apple Silicon `.app` using `npm run desktop:build -- --debug --bundles app`. Separate clean browser contexts verified English/Japanese Demo onboarding, character/logo rendering, prompt sticker insertion, send, approval and cancel. Screenshots contain synthetic Demo content only.

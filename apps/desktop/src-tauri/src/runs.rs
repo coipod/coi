@@ -915,10 +915,12 @@ mod tests {
         (temp, Arc::new(Mutex::new(store)), input)
     }
     fn launch_plan() -> LaunchPlan {
+        // Keep a normal absolute path: Node entry points cannot use Windows verbatim paths.
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../../..")
-            .canonicalize()
-            .unwrap();
+            .ancestors()
+            .nth(3)
+            .expect("fixture repository root")
+            .to_path_buf();
         LaunchPlan {
             workspace: None,
             executable: which::which("node").unwrap(),

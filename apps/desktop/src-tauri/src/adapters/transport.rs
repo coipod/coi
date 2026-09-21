@@ -238,10 +238,12 @@ mod tests {
     #[test]
     fn graceful_parent_exit_does_not_leave_descendant_running() {
         let node = which::which("node").unwrap();
+        // Keep a normal absolute path: Node entry points cannot use Windows verbatim paths.
         let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../../..")
-            .canonicalize()
-            .unwrap();
+            .ancestors()
+            .nth(3)
+            .expect("fixture repository root")
+            .to_path_buf();
         let script = root.join("tests/fixtures/cli/orphan-parent.cjs");
         let mut t = StdioTransport::spawn(&node, &[script.to_str().unwrap()], &root).unwrap();
         let frame = t.receive(Duration::from_secs(3)).unwrap();
@@ -299,10 +301,12 @@ mod tests {
     #[test]
     fn fixture_handshake_stream_approval_and_cancellation() {
         let node = which::which("node").expect("Node required for fixture test");
+        // Keep a normal absolute path: Node entry points cannot use Windows verbatim paths.
         let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../../..")
-            .canonicalize()
-            .unwrap();
+            .ancestors()
+            .nth(3)
+            .expect("fixture repository root")
+            .to_path_buf();
         let script = root.join("tests/fixtures/cli/fake-app-server.cjs");
         let mut t = StdioTransport::spawn(&node, &[script.to_str().unwrap()], &root).unwrap();
         let mut protocol = Protocol::default();
