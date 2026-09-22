@@ -392,5 +392,20 @@
   "로컬 저장에 실패했어요. 디스크 공간과 폴더 권한을 확인해 주세요.": "Local save failed. Check disk space and folder permissions.",
   "CLI 기록 연결을 재시도하고 있어요. 실행은 계속 관리되고 있으며 중지할 수 있어요.": "Reconnecting to the CLI log. The run is still managed and can be stopped.",
   "COI — 함께 만드는 작업실": "COI — Your coding workspace",
-  "함께 만드는 로컬 코딩 작업실": "Your local coding workspace"
+  "함께 만드는 로컬 코딩 작업실": "Your local coding workspace",
+  "AI 설정": "AI settings",
+  "연결 확인 필요": "Connection needs attention",
+  "CLI 연결 관리": "Manage CLI connections",
+  "Demo에서는 실제 CLI를 실행하지 않아요. 연결된 CLI 설정은 프로젝트 요청에 적용돼요.": "Demo does not run a real CLI. Connected CLI settings apply to project requests.",
+  "실행하려면 프로젝트 폴더를 먼저 열어 주세요.": "Open a project folder before running a request.",
+  "프로젝트 열기": "Open project",
+  "프로젝트 연결 필요": "Project required",
+  "브라우저 미리보기": "Browser preview",
+  "이 프로젝트의 개선 방향을 설명해줘": "Suggest improvements for this project.",
+  "계속": "Continue",
+  "실행 시 CLI가 코드와 요청을 AI 공급자에 전송할 수 있고 사용량이 발생해요.": "The CLI may send code and requests to the AI provider and incur usage charges.",
+  "프로젝트 폴더를 열고 연결한 CLI로 작업을 시작해요.": "Open a project folder and start working with your connected CLI.",
+  "브라우저 미리보기는 이 브라우저의 로컬 저장소를 사용해요.": "Browser preview uses this browser’s local storage.",
+  "브라우저에서는 로컬 CLI를 검사할 수 없어요.": "Local CLIs cannot be checked in the browser.",
+  "프로젝트 폴더와 CLI 실행은 데스크톱 앱에서 사용할 수 있어요.": "Project folders and CLI execution are available in the desktop app."
 }

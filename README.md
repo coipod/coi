@@ -1,12 +1,18 @@
 # COI
 
-**Coding Organizing Intelligence** — a local coding workspace with a character companion.
+**An open-source coding workspace with a character companion.**
 
-[日本語](docs/README.ja.md) · [Support status](docs/STATUS.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
+Bring your supported AI coding CLI, edit a request with prompt stickers, and review changes before applying them. COI stands for Coding Organizing Intelligence.
 
-![COI workspace](docs/screenshots/workspace-en.png)
+[日本語](docs/README.ja.md) · [Support status](docs/STATUS.md) · [FAQ](docs/FAQ.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
 
-**Development alpha · source distribution.** There is no signed installer release. Live CLI execution is enabled only for the validated OS, architecture, CLI version and execution profile listed in [the support matrix](docs/STATUS.md). Other configurations can use the browser demo; successful compilation does not imply live execution support.
+![COI interface preview: character companion and project setup](docs/screenshots/workspace-en.png)
+
+*Current interface preview. Real requests require the desktop app and a supported CLI.*
+
+[Build the desktop app](#build-the-desktop-app) · [Connect an AI provider](#connect-an-ai-provider)
+
+**Development alpha · source distribution.** There is no signed installer release. Live CLI execution is enabled only for the validated OS, architecture, CLI version and execution profile listed in [the support matrix](docs/STATUS.md). Other configurations can preview the interface in a browser; successful compilation does not imply live execution support.
 
 ## What it does
 
@@ -18,7 +24,7 @@
 
 The companion uses PixiJS with complete-pose images and bounded mesh motion. It is not a Cubism Live2D model.
 
-## Start with the demo
+## Preview the interface
 
 Install Node.js **22** and npm, then:
 
@@ -29,7 +35,7 @@ npm ci --legacy-peer-deps
 npm run dev
 ```
 
-Open `http://127.0.0.1:1420`. The demo uses synthetic, in-memory examples: it does not invoke a CLI, send requests to an AI provider or modify project files. Demo verification results are simulated.
+Open `http://127.0.0.1:1420`. The browser previews the interface only. It cannot execute requests, invoke a CLI or modify project files. Use the desktop app, open a project folder and connect a supported CLI for real work.
 
 The repository is currently private during release preparation; cloning requires organization access.
 
@@ -57,7 +63,7 @@ Choose **Open project folder**, select a supported CLI/model, and submit a reque
 
 ## Data and boundaries
 
-COI has no account server, billing service, automatic remote synchronization or telemetry. Provider accounts and charges are separate. Data stays in the OS app-data directory for `dev.coi.desktop` (SQLite, task copies and recovery journals); the browser demo uses localStorage. Local storage is not an encrypted vault.
+COI has no account server, billing service, automatic remote synchronization or telemetry. Provider accounts and charges are separate. Data stays in the OS app-data directory for `dev.coi.desktop` (SQLite, task copies and recovery journals); the browser preview uses localStorage. Local storage is not an encrypted vault.
 
 Copies exclude credentials/configuration patterns, `.git`, `.env*`, dependencies, build output and ignored files. Symlinks/junctions are not followed. Limits: 10,000 files, 200 MiB total, 20 MiB per file. Secret filtering is not a guarantee that arbitrary secrets cannot exist in a project.
 

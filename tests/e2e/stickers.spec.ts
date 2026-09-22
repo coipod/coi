@@ -1,3 +1,4 @@
+import { saveHistory } from "./history";
 import { test, expect, type Page } from "@playwright/test";
 import { stickers } from "../../apps/desktop/src/lib/stickers";
 async function open(page: Page) {
@@ -27,25 +28,16 @@ test("six editable sticker requests preserve text and never auto-send", async ({
   await expect(input).toHaveValue(text);
   await expect(page.locator(".sticker-draft")).toHaveCount(0);
 });
-test("sticker, edited request, retry and restored history stay associated", async ({ page }) => {
+test("missing project retains the edited request and sticker without executing", async ({ page }) => {
   await open(page);
   await choose(page, "Check");
   const input = page.getByRole("textbox", { name: "Request for COI" });
-  await input.fill("수정한 원래 요청 COI_STICKER_TEST");
+  await input.fill("Edited request");
   await page.getByRole("button", { name: "Send request" }).click();
-  await expect(input).toHaveValue("");
-  await expect(page.locator(".sticker-draft")).toHaveCount(0);
-  await expect(page.locator(".user-turn .sent-sticker")).toHaveAttribute("src", "/coi/sd/check.png");
-  await expect(page.getByRole("button", { name: "Proceed in copy", exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Stop task" }).click();
-  await page.getByRole("button", { name: "Retry" }).click();
-  await expect(page.locator(".user-turn").filter({ hasText: "COI_STICKER_TEST" })).toHaveCount(2);
-  await expect(page.locator(".user-turn .sent-sticker")).toHaveCount(2);
-  await page.getByRole("button", { name: "Stop task" }).click();
-  await expect(page.getByRole("button", { name: "Stop task" })).toHaveCount(0);
-  await page.reload();
-  await expect(page.locator(".user-turn .sent-sticker")).toHaveCount(2);
-  await expect(page.locator(".message-enter")).toHaveCount(0);
+  await expect(input).toHaveValue("Edited request");
+  await expect(page.locator(".sticker-draft img")).toHaveAttribute("src", "/coi/sd/check.png");
+  await expect(page.locator(".user-turn")).toHaveCount(0);
+  await expect(page.getByRole("status")).toContainText("Open a project folder");
 });
 test("keyboard dismissal returns focus, selection inserts at cursor without replacing text", async ({ page }) => {
   await open(page);
@@ -61,10 +53,8 @@ test("keyboard dismissal returns focus, selection inserts at cursor without repl
   await expect(input).toHaveValue(`앞\n${stickers[0].prompt}\n뒤`);
 });
 test("unknown and failed sticker assets preserve the message", async ({ page }) => {
-  await open(page); await choose(page, "Explain");
-  await page.getByRole("button", { name: "Send request" }).click();
-  await page.getByRole("button", { name: "Stop task" }).click();
-  await expect(page.getByRole("button", { name: "Stop task" })).toHaveCount(0);
+  await open(page);
+  await saveHistory(page, stickers[0].prompt);
   await page.route("**/coi/sd/explain.png", (route) => route.abort());
   await page.reload();
   await expect(page.locator(".user-turn p")).toHaveText(stickers[0].prompt);
@@ -90,8 +80,7 @@ for (const width of [960, 1440, 1728]) {
     await expect(dialog).toHaveCount(0);
     const input = page.getByRole("textbox", { name: "Request for COI" });
     await input.fill("긴 요청 ".repeat(25) + "\n```ts\nconst answer = 42;\n```");
-    await page.getByRole("button", { name: "Send request" }).click();
-    await expect(page.getByRole("button", { name: "Proceed in copy", exact: true })).toBeVisible();
+    await saveHistory(page, await input.inputValue(), "find");
     const avatarUser = await page.locator(".user-avatar").boundingBox();
     const avatarCoi = await page.locator(".assistant-turn .message-avatar").boundingBox();
     expect(avatarUser!.x).toBeGreaterThan(avatarCoi!.x + 100);
@@ -104,7 +93,7 @@ test("OS reduced motion disables UI animation and panel focus remains usable", a
   await open(page);
   await expect(page.locator("html")).toHaveAttribute("data-motion", "reduced");
   await choose(page, "Create");
-  await page.getByRole("button", { name: "Send request" }).click();
+  await saveHistory(page, "Saved request", "create");
   expect(await page.locator(".user-turn").evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
   await page.getByRole("button", { name: "Collapse sidebar" }).click();
   await expect(page.locator(".sidebar")).toHaveAttribute("inert", "");

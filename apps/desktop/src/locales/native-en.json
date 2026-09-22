@@ -143,5 +143,6 @@
   "기존 Antigravity 설정을 유지하며 실제 응답을 확인하고 있어요.": "Checking a real response while preserving existing Antigravity settings.",
   "Antigravity 연결 응답을 읽을 수 없어요.": "Unable to read the Antigravity connection response.",
   "Antigravity 실제 응답을 확인하지 못했어요. 공식 CLI 로그인과 사용량을 확인해 주세요.": "Unable to verify a real Antigravity response. Check official CLI sign-in and usage limits.",
-  "Antigravity 로그인·모델·실제 응답을 확인했어요. 기존 MCP 설정은 유지돼요.": "Antigravity sign-in, models and a real response verified. Existing MCP settings are preserved."
+  "Antigravity 로그인·모델·실제 응답을 확인했어요. 기존 MCP 설정은 유지돼요.": "Antigravity sign-in, models and a real response verified. Existing MCP settings are preserved.",
+  "실제 CLI 실행을 보류했어요. 이 OS·버전의 sandbox와 외부 도구 차단·프로세스 종료 검증이 필요해요. 파일 탐색을 이용하거나 지원되는 CLI를 연결해 주세요.": "Real CLI execution is on hold pending sandbox, external tool blocking and process termination checks for this OS and version. Browse project files or connect a supported CLI."
 }

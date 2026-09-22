@@ -191,7 +191,7 @@ export function Onboarding() {
                 className="primary intro-next"
                 onClick={() => go("trust_pact")}
               >
-                {t("먼저 체험해 볼게")}
+                {t("계속")}
                 <ArrowRight size={17} />
               </button>
               <button
@@ -231,7 +231,7 @@ export function Onboarding() {
                   <b>{t("로컬 저장, 명확한 AI 사용")}</b>
                   <p>
                     {t(
-                      "실제 실행 시 CLI가 코드와 요청을 AI 공급자에 전송할 수 있고 사용량이 발생해요. Demo는 파일·CLI·네트워크를 사용하지 않아요.",
+                      "실행 시 CLI가 코드와 요청을 AI 공급자에 전송할 수 있고 사용량이 발생해요.",
                     )}
                   </p>
                 </div>
@@ -274,28 +274,16 @@ export function Onboarding() {
                 {t("작은 인사부터.")}
               </h1>
               <p className="intro-copy">
-                {t("예제 README의 인사말을 다듬으며")}
-                <br />
-                {t("작업과 변경 검토를 함께 경험해 봐요.")}
+                {t("프로젝트 폴더를 열고 연결한 CLI로 작업을 시작해요.")}
               </p>
-              <div className="mission-preview">
-                <span className="tag">{t("DEMO · 모의 예제")}</span>
-                <p>{t("“인사말을 더 친근하게 바꿔줘”")}</p>
-                <code>
-                  README.md <span>{t("한 번의 작은 변화")}</span>
-                </code>
-              </div>
               <button
                 className="primary intro-next"
                 onClick={() => {
-                  s.setStage("guided_run");
-                  s.skip();
-                  s.newSession();
-                  s.updateSettings({ mode: "review_copy" });
-                  void s.send(t("인사말을 더 친근하게 바꿔줘"));
+                  go("completed");
+                  void s.openProject();
                 }}
               >
-                {t("COI와 첫 작업 시작")}
+                {t("프로젝트 열기")}
                 <ArrowRight size={17} />
               </button>
               <button className="text-button" onClick={() => go("completed")}>

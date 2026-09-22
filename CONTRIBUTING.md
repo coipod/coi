@@ -8,7 +8,7 @@ Use Node 22, npm, Rust 1.93.1 and the Tauri platform prerequisites. Dependencies
 
 Run `npm run check`, `npm run test:e2e` (after `npx playwright install chromium`), `npm run test:native`, `cargo fmt --manifest-path apps/desktop/src-tauri/Cargo.toml --check` and `cargo clippy --manifest-path apps/desktop/src-tauri/Cargo.toml --all-targets -- -D warnings`. CI additionally audits dependencies and scans secrets. Do not invoke ignored authenticated tests in PR CI or bypass the execution gate to make tests pass.
 
-- `apps/desktop/src`: React UI, state, demo and narrow IPC bridge.
+- `apps/desktop/src`: React UI, state and narrow IPC bridge.
 - `apps/desktop/src-tauri/src`: storage, copies/recovery, provider adapters and process management.
 - `packages/protocol`: versioned events and reducer; update both Rust and TypeScript for protocol changes.
 - `tests/fixtures`: synthetic fixtures only; never real provider logs.
@@ -27,6 +27,6 @@ Record artwork source, author/attribution, generation or editing instructions, l
 
 ## Community
 
-Follow [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md). Report ordinary bugs through the issue template with sanitized diagnostics. Do not submit credentials, private project contents or raw CLI logs. A private operating/conduct contact is still being established: repository visibility must remain private until it exists. Security reporting instructions are in SECURITY.md.
+Follow [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md). Report ordinary bugs through the issue template with sanitized diagnostics. Do not submit credentials, private project contents or raw CLI logs. Private security/conduct reports go to coipoddev@gmail.com in English or Japanese. Remaining public-release conditions are tracked in docs/release/READINESS.md. Security reporting instructions are in SECURITY.md.
 
 Refresh dependency inventories after dependency changes: `npm sbom --sbom-format cyclonedx > docs/release/npm-sbom.json` and `node scripts/dependency-inventory.mjs`. Review upstream license notices as well as metadata; do not copy machine-local Cargo paths into published inventories.

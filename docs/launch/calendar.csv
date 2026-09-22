@@ -1,0 +1,20 @@
+id,week,relative_day,language,channel,copy_reference,asset,status,publication_gate
+W1-en,1,2,en,X,copy.en.md X 1,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W1-ja,1,4,ja,X,copy.ja.md X 1,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W2-en,2,9,en,X,copy.en.md X 2,sticker screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W2-ja,2,11,ja,X,copy.ja.md X 2,sticker screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W3-en,3,16,en,X,copy.en.md X 3,reviewed real-run video,draft,public repository; maker review; media evidence if claiming real recording
+W3-ja,3,18,ja,X,copy.ja.md X 3,reviewed real-run video,draft,public repository; maker review; media evidence if claiming real recording
+W4-en,4,23,en,X,copy.en.md X 4,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W4-ja,4,25,ja,X,copy.ja.md X 4,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W5-en,5,30,en,X,copy.en.md X 5,reviewed real-run video,draft,public repository; maker review; media evidence if claiming real recording
+W5-ja,5,32,ja,X,copy.ja.md X 5,reviewed real-run video,draft,public repository; maker review; media evidence if claiming real recording
+W6-en,6,37,en,X,copy.en.md X 6,reviewed real-run video,draft,public repository; maker review; media evidence if claiming real recording
+W6-ja,6,39,ja,X,copy.ja.md X 6,reviewed real-run video,draft,public repository; maker review; media evidence if claiming real recording
+W7-en,7,44,en,X,copy.en.md X 7,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W7-ja,7,46,ja,X,copy.ja.md X 7,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W8-en,8,51,en,X,copy.en.md X 8,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W8-ja,8,53,ja,X,copy.ja.md X 8,workspace screenshot,draft,public repository; maker review; media evidence if claiming real recording
+W3-reddit,3,18,en,Reddit,copy.en.md Reddit,en-60s.mp4,conditional,current community rules; public runnable source; verified assets
+W4-zenn,4,25,ja,Zenn,copy.ja.md Zenn,ja-60s.mp4,conditional,current community rules; public runnable source; verified assets
+W6-hn,6,38,en,Show HN,maker-written only,runnable repository,conditional,current community rules; public runnable source; verified assets

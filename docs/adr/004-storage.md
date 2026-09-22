@@ -21,3 +21,7 @@ native는 SQLite WAL과 transaction을 사용한다. settings/sessions/projects/
 ## Migration
 
 현재 지원 SQLite schema는2이다. 버전별 SQL을 단일 transaction으로 실행하고 필수 컬럼을 확인한 다음 commit한다. 기존 데이터와 반복 실행을 검증했다. 지원 버전보다 새로운 DB는 WAL 설정 변경 전 거절하며 실패한 migration은 DDL까지 rollback한다. schema1의 기존 테이블과 데이터를 유지하며 native_runs와 인덱스를 추가한다. 손상된 DB의 사용자 복구 화면은 아직 후속 항목이다.
+
+## UI persistence update — 2026-09-22
+
+Durable snapshot changes are coalesced in a single writer; transient controls no longer serialize history. Native SQLite saves run on a blocking worker rather than the UI thread. Starting a native request flushes pending snapshot persistence first. Snapshot version 2 and previous-version compatibility remain unchanged. Failure remains visible and prevents subsequent unsafe start assumptions.

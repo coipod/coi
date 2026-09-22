@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "pathBase": "repository root",
+  "assets": [
+    {
+      "id": "en-workspace",
+      "path": "docs/screenshots/workspace-en.png",
+      "locale": "en",
+      "kind": "browser-interface-screenshot",
+      "source": "tests/e2e/launch-assets.spec.ts",
+      "captureDate": "2026-09-22",
+      "sha256": "0befbd32d9421d56b9a01c013ae57e8cf205e6ba863329e1d010439a16152eba",
+      "visualReview": "passed: legible UI, no personal data, no Korean text or demo content",
+      "claimLimit": "Interface preview only; no connected CLI, generated response or applied change shown",
+      "license": "UI/code Apache-2.0; character artwork CC BY 4.0",
+      "artworkProvenance": "assets/coi/README.md"
+    },
+    {
+      "id": "en-stickers",
+      "path": "docs/launch/assets/en-stickers.png",
+      "locale": "en",
+      "kind": "browser-interface-screenshot",
+      "source": "tests/e2e/launch-assets.spec.ts",
+      "captureDate": "2026-09-22",
+      "sha256": "ccd469018cb17408b27389f123b0515f6c8178face1541cdd4e2f24098398178",
+      "visualReview": "passed: legible UI, no personal data, no Korean text or demo content",
+      "claimLimit": "Interface preview only; no connected CLI, generated response or applied change shown",
+      "license": "UI/code Apache-2.0; character artwork CC BY 4.0",
+      "artworkProvenance": "assets/coi/README.md"
+    },
+    {
+      "id": "en-draft",
+      "path": "docs/launch/assets/en-draft.png",
+      "locale": "en",
+      "kind": "browser-interface-screenshot",
+      "source": "tests/e2e/launch-assets.spec.ts",
+      "captureDate": "2026-09-22",
+      "sha256": "777bd1c37a4c1c039391229a23caeabe87d518b1d21979d864aa0b99bd4c3772",
+      "visualReview": "passed: legible UI, no personal data, no Korean text or demo content",
+      "claimLimit": "Interface preview only; no connected CLI, generated response or applied change shown",
+      "license": "UI/code Apache-2.0; character artwork CC BY 4.0",
+      "artworkProvenance": "assets/coi/README.md"
+    },
+    {
+      "id": "ja-workspace",
+      "path": "docs/screenshots/workspace-ja.png",
+      "locale": "ja",
+      "kind": "browser-interface-screenshot",
+      "source": "tests/e2e/launch-assets.spec.ts",
+      "captureDate": "2026-09-22",
+      "sha256": "2d877bff816e7289a3e79c1853a3949b4a0878f4156eafa96215363082936fb7",
+      "visualReview": "passed: legible UI, no personal data, no Korean text or demo content",
+      "claimLimit": "Interface preview only; no connected CLI, generated response or applied change shown",
+      "license": "UI/code Apache-2.0; character artwork CC BY 4.0",
+      "artworkProvenance": "assets/coi/README.md"
+    },
+    {
+      "id": "ja-stickers",
+      "path": "docs/launch/assets/ja-stickers.png",
+      "locale": "ja",
+      "kind": "browser-interface-screenshot",
+      "source": "tests/e2e/launch-assets.spec.ts",
+      "captureDate": "2026-09-22",
+      "sha256": "2f688ca424aafae8df0a21eb8214e45bc0d6565823f4923695ec906ff27887ce",
+      "visualReview": "passed: legible UI, no personal data, no Korean text or demo content",
+      "claimLimit": "Interface preview only; no connected CLI, generated response or applied change shown",
+      "license": "UI/code Apache-2.0; character artwork CC BY 4.0",
+      "artworkProvenance": "assets/coi/README.md"
+    },
+    {
+      "id": "ja-draft",
+      "path": "docs/launch/assets/ja-draft.png",
+      "locale": "ja",
+      "kind": "browser-interface-screenshot",
+      "source": "tests/e2e/launch-assets.spec.ts",
+      "captureDate": "2026-09-22",
+      "sha256": "cdcb5ad857f26f0e38b9ffb589d1ef0d434da204b063db8d1bd05a3f8a4919d7",
+      "visualReview": "passed: legible UI, no personal data, no Korean text or demo content",
+      "claimLimit": "Interface preview only; no connected CLI, generated response or applied change shown",
+      "license": "UI/code Apache-2.0; character artwork CC BY 4.0",
+      "artworkProvenance": "assets/coi/README.md"
+    }
+  ],
+  "pending": [
+    "actual diff screenshot en/ja",
+    "real-run video en/ja 15s/60s"
+  ],
+  "videoStatus": "not recorded"
+}

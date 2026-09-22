@@ -1,3 +1,4 @@
+import { saveHistory } from "./history";
 import { test, expect } from "@playwright/test";
 for (const locale of ["en", "ja"] as const) {
   test(`${locale}: onboarding, settings and stickers have no Korean UI`, async ({ page }) => {
@@ -40,11 +41,7 @@ test("unsupported stored locale falls back to English and user Korean stays inta
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await page.getByRole("button", { name: "Explore later" }).click();
-  await page.locator("textarea").fill("사용자가 작성한 한국어는 보존");
-  await page.getByRole("button", { name: "Send request" }).click();
-  await expect(page.locator(".user-turn p")).toHaveText("사용자가 작성한 한국어는 보존");
-  await page.getByRole("button", { name: "Stop task" }).click();
-  await page.reload();
+  await saveHistory(page, "사용자가 작성한 한국어는 보존");
   await expect(page.locator(".user-turn p")).toHaveText("사용자가 작성한 한국어는 보존");
 });
 for (const locale of ["en", "ja"] as const) {

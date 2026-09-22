@@ -2904,6 +2904,8 @@ button {
     transform var(--motion-fast);
 }
 button:active:not(:disabled) {
+  /* Press feedback is immediate; the release keeps the gentle transition. */
+  transition-duration: 0ms;
   transform: scale(0.98);
 }
 @keyframes message-arrive {
@@ -3062,9 +3064,9 @@ button:active:not(:disabled) {
   --sidebar-track: var(--sidebar-size);
   --context-track: var(--panel-width);
   --separator-track: 1px;
-  grid-template-columns: var(--sidebar-track) minmax(0, 1fr) var(
-      --separator-track
-    ) var(--context-track);
+  grid-template-columns:
+    var(--sidebar-track) minmax(0, 1fr) var(--separator-track)
+    var(--context-track);
   transition: grid-template-columns var(--motion-panel) var(--motion-ease);
 }
 .app-shell.sidebar-closed {
@@ -3189,4 +3191,117 @@ html[lang="en"] .composer-toolbar {
 }
 html[lang="en"] .chapters small {
   font-size: 10px;
+}
+
+/* Four primary composer controls; detail controls live in a portal above it. */
+.composer-toolbar > div {
+  flex: 1;
+  min-width: 0;
+  flex-wrap: nowrap;
+  gap: 7px;
+}
+.composer-toolbar {
+  gap: 8px;
+}
+.composer-toolbar .send-button {
+  flex-shrink: 0;
+}
+.ai-settings-trigger {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  max-width: 240px;
+  font-size: 11px;
+  color: #627c94;
+  padding: 6px;
+  border-radius: 7px;
+}
+.ai-settings-trigger > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ai-settings-trigger > svg,
+.ai-status-dot {
+  flex-shrink: 0;
+}
+.ai-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b8753d;
+}
+.composer-toolbar .sticker-trigger,
+.composer-toolbar select {
+  flex-shrink: 0;
+}
+.ai-popover {
+  position: fixed;
+  z-index: 100;
+  overflow: auto;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #dce5ef;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px #27395224;
+  animation: surface-arrive var(--motion-pop) var(--motion-ease) both;
+}
+.ai-popover.is-closing {
+  animation: surface-leave var(--motion-fast) ease-in both;
+  pointer-events: none;
+}
+.ai-popover > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 0;
+}
+.ai-popover h2 {
+  margin: 0;
+  font-size: 14px;
+}
+.ai-popover .execution-controls {
+  border: 0;
+  padding-bottom: 14px;
+}
+.ai-popover .execution-controls select {
+  max-width: 100%;
+  min-width: 0;
+}
+.ai-popover .advanced-controls > label {
+  flex: 1;
+  min-width: 0;
+}
+.ai-popover .advanced-controls select {
+  width: 100%;
+}
+.ai-popover .execution-summary,
+.ai-popover .execution-error {
+  overflow-wrap: anywhere;
+}
+.ai-popover .subtle {
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+.ai-popover .ai-connection-link {
+  margin-top: 10px;
+}
+@media (max-width: 1100px) {
+  .composer-note .enter-hint {
+    display: none;
+  }
+  .ai-settings-trigger {
+    max-width: 180px;
+  }
+}
+@media (max-width: 1279px) {
+  /* Keep the input controls usable while the narrow-screen character drawer is open. */
+  .composer-area {
+    position: relative;
+    z-index: 4;
+    background: #fff;
+    border-radius: 14px 14px 0 0;
+  }
 }
