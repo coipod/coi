@@ -1,6 +1,11 @@
+import { memo } from "react";
 import Markdown from "react-markdown";
 // Repository/model content cannot execute HTML or trigger image beacons.
-export function SafeMarkdown({ children }: { children: string }) {
+export const SafeMarkdown = memo(function SafeMarkdown({
+  children,
+}: {
+  children: string;
+}) {
   return (
     <Markdown
       skipHtml
@@ -17,4 +22,4 @@ export function SafeMarkdown({ children }: { children: string }) {
       {children}
     </Markdown>
   );
-}
+});

@@ -6,8 +6,6 @@ import {
   FileText,
   ChevronRight,
   FolderOpen,
-  Check,
-  RotateCcw,
   GitCompareArrows,
   Code,
   Eye,
@@ -17,7 +15,6 @@ import { useApp } from "../stores/app";
 import { bridge, type FileEntry } from "../lib/bridge";
 import { NativeReview } from "./NativeReview";
 import { GitPanel } from "./GitPanel";
-import { sampleBefore, sampleAfter } from "../lib/demo";
 export function DiffView({ before, after }: { before: string; after: string }) {
   let oldLine = 0,
     newLine = 0;
@@ -88,9 +85,9 @@ export function Artifacts({ hidden = false }: { hidden?: boolean }) {
           if (live) setLoading(false);
         });
     } else {
-      setFiles([{ path: "README.md", size: sampleAfter().length }]);
-      setSelected("README.md");
-      setContent(sampleAfter());
+      setFiles([]);
+      setSelected("");
+      setContent("");
       setError("");
     }
     return () => {
@@ -121,9 +118,6 @@ export function Artifacts({ hidden = false }: { hidden?: boolean }) {
       }
     }
   };
-  const hasArtifact = session?.runs.some((r) =>
-    r.events.some((e) => e.kind === "artifact_created"),
-  );
   return (
     <div className="artifacts" hidden={hidden}>
       <div className="artifact-breadcrumb">
@@ -131,7 +125,7 @@ export function Artifacts({ hidden = false }: { hidden?: boolean }) {
         <span>
           {projectId
             ? s.projects.find((p) => p.id === projectId)?.name
-            : "hello-coi"}
+            : t("프로젝트 연결 필요")}
         </span>
         <ChevronRight size={12} />
         <b>{selected || t("파일 선택")}</b>
@@ -173,11 +167,11 @@ export function Artifacts({ hidden = false }: { hidden?: boolean }) {
         </div>
       ) : error ? (
         <div className="viewer-empty">{error}</div>
-      ) : !projectId && !hasArtifact ? (
+      ) : !projectId ? (
         <div className="viewer-empty">
           <FileText size={30} />
           <h3>{t("변경안을 기다리고 있어요")}</h3>
-          <p>{t("Demo 작업을 완료하면 여기서 차이를 볼 수 있어요.")}</p>
+          <p>{t("실행하려면 프로젝트 폴더를 먼저 열어 주세요.")}</p>
         </div>
       ) : (
         <div className="artifact-content">
@@ -188,22 +182,6 @@ export function Artifacts({ hidden = false }: { hidden?: boolean }) {
                 {selected} {t("· 안전하게 변환한 미리보기")}
               </figcaption>
             </figure>
-          ) : tab === "diff" ? (
-            <>
-              <div className="change-summary">
-                <span>README.md</span>
-                <span>
-                  <i>+2</i>
-                  <b>−2</b>
-                </span>
-              </div>
-              <DiffView before={sampleBefore} after={sampleAfter()} />
-              <div className="verification-note">
-                <Check size={14} />
-                {t("예제 인사말 검사 통과")}
-                <span>{t("모의 결과")}</span>
-              </div>
-            </>
           ) : tab === "preview" ? (
             <article className="markdown">
               <Markdown>{content}</Markdown>
@@ -241,37 +219,6 @@ export function Artifacts({ hidden = false }: { hidden?: boolean }) {
           ))}
         </div>
       </div>
-      {!projectId && hasArtifact && (
-        <div className="apply-footer">
-          <div>
-            <span className="tag">DEMO</span>
-            <p>
-              {session?.demoApplied
-                ? t("메모리 예제에 적용했어요.")
-                : session?.demoDeclined
-                  ? t("변경안을 보관했어요.")
-                  : t("검토한 변경을 예제에 적용할까요?")}
-            </p>
-          </div>
-          {session?.demoApplied ? (
-            <button className="secondary full" onClick={s.demoUndo}>
-              <RotateCcw size={15} />
-              {t("되돌리기 체험")}
-            </button>
-          ) : (
-            <div className="apply-actions">
-              <button className="secondary" onClick={() => s.demoApply(false)}>
-                {t("적용하지 않기")}
-              </button>
-              <button className="primary" onClick={() => s.demoApply(true)}>
-                <Check size={15} />
-                {t("예제에 적용")}
-              </button>
-            </div>
-          )}
-          <small>{t("실제 원본 파일은 변경되지 않아요.")}</small>
-        </div>
-      )}
     </div>
   );
 }

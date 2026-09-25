@@ -37,7 +37,7 @@ pub fn require(version: &str) -> Result<()> {
     if status(version).enabled {
         Ok(())
     } else {
-        Err(crate::i18n::text("실제 CLI 실행을 보류했어요. 이 OS·버전의 sandbox와 외부 도구 차단·프로세스 종료 검증이 필요해요. Demo와 파일 탐색을 이용해 주세요.").into())
+        Err(crate::i18n::text("실제 CLI 실행을 보류했어요. 이 OS·버전의 sandbox와 외부 도구 차단·프로세스 종료 검증이 필요해요. 파일 탐색을 이용하거나 지원되는 CLI를 연결해 주세요.").into())
     }
 }
 

@@ -7,3 +7,7 @@ introduction → provider_check → trust_pact → first_mission → guided_run 
 Demo는 동일 CliAdapter 계약으로 모의 읽기·승인·수정·검증·산출물·완료를 내보낸다. 실제 filesystem, provider, network는 사용하지 않는다. 스크립트된 예제임을 배지와 결과 문구에 명시한다. plan 모드는 승인·수정·검증 통과·가짜 artifact를 만들지 않는다. 취소는 타이머와 승인을 끝내고 terminal을 한 번만 보낸다.
 
 checkpoint/reload, 첫 임무 전체, stop/retry, 키보드, 최소 화면을 Playwright로 검사한다. 실제 신규 사용자 5~8분 사용성 시험은 아직 수행하지 않았다.
+
+## Superseded behavior — 2026-09-22
+
+The production DemoAdapter and simulated apply/undo flow have been removed. Onboarding now ends at project setup. Requests without a project are rejected; project requests use the native bridge and existing execution gates. A failed native start never falls back to simulation. Legacy stored events remain readable with explicit provenance; no snapshot migration or conversation deletion is performed. See ../validation/real-only-execution.md.

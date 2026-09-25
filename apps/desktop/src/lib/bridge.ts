@@ -179,7 +179,7 @@ export const bridge = {
               version: null,
               authStatus: "unknown",
               compatibility: "unverified",
-              reason: t("브라우저 체험에서는 로컬 CLI를 검사하지 않아요."),
+              reason: t("브라우저에서는 로컬 CLI를 검사할 수 없어요."),
             }) as DetectionResult,
         );
   },
@@ -187,7 +187,7 @@ export const bridge = {
     if (!native)
       throw new Error(
         t(
-          "프로젝트 폴더는 데스크톱 앱에서 열 수 있어요. 여기서는 Demo를 체험해 주세요.",
+          "프로젝트 폴더와 CLI 실행은 데스크톱 앱에서 사용할 수 있어요.",
         ),
       );
     return invoke("pick_project");
@@ -274,7 +274,7 @@ export const bridge = {
           {
             app: "COI",
             version: "0.1.0",
-            mode: "browser-demo",
+            mode: "browser-preview",
             platform: navigator.platform,
           },
           null,

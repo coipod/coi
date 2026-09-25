@@ -1,4 +1,6 @@
-import { t, useLocale, systemText, demoText } from "./lib/i18n";
+import { StreamingResponse } from "./components/StreamingResponse";
+import { useShallow } from "zustand/react/shallow";
+import { t, useLocale, systemText } from "./lib/i18n";
 import { CoiAvatar, StickerImage, StickerPicker } from "./components/Stickers";
 import {
   getSticker,
@@ -8,7 +10,7 @@ import {
 import { consumeMessageEntrance } from "./lib/messageMotion";
 import { useReducedMotion } from "./hooks/motion";
 import { ExecutionControls } from "./components/ExecutionControls";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { memo, useEffect, useRef, useState, type FormEvent } from "react";
 import {
   PanelLeft,
   Plus,
@@ -35,7 +37,6 @@ import {
   AlertCircle,
   Focus,
 } from "lucide-react";
-import { SafeMarkdown as Markdown } from "./components/SafeMarkdown";
 import { isTerminal, type RunState, type CoiEvent } from "@coi/protocol";
 import { useApp, type Session } from "./stores/app";
 import { Onboarding } from "./features/Onboarding";
@@ -108,13 +109,21 @@ function eventLabel(e: CoiEvent) {
       return "";
   }
 }
-function RunTimeline({ run }: { run: RunState }) {
-  const s = useApp();
-  const retryMessage = s.sessions
-    .find((session) => session.id === run.sessionId)
-    ?.messages.find(
-      (message) => message.role === "user" && message.runId === run.runId,
-    );
+const RunTimeline = memo(function RunTimeline({ run }: { run: RunState }) {
+  useLocale((state) => state.locale);
+  const s = useApp(
+    useShallow((state) => ({
+      decide: state.decide,
+      send: state.send,
+      setPanel: state.setPanel,
+      retryMessage: state.sessions
+        .find((session) => session.id === run.sessionId)
+        ?.messages.find(
+          (message) => message.role === "user" && message.runId === run.runId,
+        ),
+    })),
+  );
+  const retryMessage = s.retryMessage;
   const retryPrompt = retryMessage?.text;
   const [enter] = useState(() => consumeMessageEntrance(run.runId));
   const [pending, setPending] = useState(false);
@@ -129,15 +138,7 @@ function RunTimeline({ run }: { run: RunState }) {
           </span>
           <small>{statusLabel[run.status]}</small>
         </header>
-        {run.text && (
-          <div className="message-prose">
-            <Markdown>
-              {run.events.some((event) => event.origin === "demo")
-                ? demoText(run.text)
-                : run.text}
-            </Markdown>
-          </div>
-        )}
+        <StreamingResponse run={run} />
         <details className="activity-log">
           <summary>
             <span className={isTerminal(run.status) ? "" : "pulse-dot"}>
@@ -261,7 +262,7 @@ function RunTimeline({ run }: { run: RunState }) {
       </div>
     </article>
   );
-}
+});
 function Welcome({ session }: { session: Session }) {
   const s = useApp();
   return (
@@ -279,29 +280,33 @@ function Welcome({ session }: { session: Session }) {
         <br />
         {t("COI와 차근차근 풀어 보세요.")}
       </p>
-      <div className="suggestions">
-        <button onClick={() => void s.send(t("인사말을 더 친근하게 바꿔줘"))}>
-          <FileText size={18} />
-          <b>{t("작은 변화부터")}</b>
-          <span>{t("README 인사말 다듬기")}</span>
-          <ArrowUp size={14} />
-        </button>
-        <button
-          onClick={() => {
-            s.updateSettings({ mode: "plan" });
-            void s.send(t("이 예제의 개선 방향을 설명해줘"));
-          }}
-        >
-          <Search size={18} />
-          <b>{t("먼저 살펴보기")}</b>
-          <span>{t("읽기 모드로 코드 이해하기")}</span>
-          <ArrowUp size={14} />
-        </button>
-      </div>
+      {session.projectId && (
+        <div className="suggestions">
+          <button onClick={() => void s.send(t("인사말을 더 친근하게 바꿔줘"))}>
+            <FileText size={18} />
+            <b>{t("작은 변화부터")}</b>
+            <span>{t("README 인사말 다듬기")}</span>
+            <ArrowUp size={14} />
+          </button>
+          <button
+            onClick={() => {
+              s.updateSettings({ mode: "plan" });
+              void s.send(t("이 프로젝트의 개선 방향을 설명해줘"));
+            }}
+          >
+            <Search size={18} />
+            <b>{t("먼저 살펴보기")}</b>
+            <span>{t("읽기 모드로 코드 이해하기")}</span>
+            <ArrowUp size={14} />
+          </button>
+        </div>
+      )}
       {!session.projectId && (
-        <div className="demo-hint">
-          <span className="tag">DEMO</span>
-          {t("지금은 예제 작업실이에요. 파일과 CLI를 사용하지 않아요.")}
+        <div className="notice">
+          <p>{t("실행하려면 프로젝트 폴더를 먼저 열어 주세요.")}</p>
+          <button className="primary" onClick={() => void s.openProject()}>
+            {t("프로젝트 열기")}
+          </button>
         </div>
       )}
       {session.projectId && (
@@ -317,7 +322,12 @@ function Welcome({ session }: { session: Session }) {
     </div>
   );
 }
-function ChatMessage({ message }: { message: Session["messages"][number] }) {
+const ChatMessage = memo(function ChatMessage({
+  message,
+}: {
+  message: Session["messages"][number];
+}) {
+  useLocale((state) => state.locale);
   const [enter] = useState(() => consumeMessageEntrance(message.id));
   const user = message.role === "user";
   return (
@@ -333,7 +343,7 @@ function ChatMessage({ message }: { message: Session["messages"][number] }) {
       </div>
     </div>
   );
-}
+});
 type Draft = { text: string; stickerId?: StickerId; revision: number };
 export default function App() {
   const s = useApp();
@@ -358,6 +368,11 @@ export default function App() {
     });
   };
   const [stickerOpen, setStickerOpen] = useState(false);
+  const [aiSettingsOpen, setAiSettingsOpen] = useState(false);
+  useEffect(() => {
+    setAiSettingsOpen(false);
+    setStickerOpen(false);
+  }, [s.activeId]);
   const pickedSticker = useRef(false);
   const reducedMotion = useReducedMotion();
   const [resizing, setResizing] = useState(false);
@@ -436,8 +451,7 @@ export default function App() {
       );
     });
   };
-  const guided = s.stage === "guided_run";
-  const readyToFinish = guided && s.diffSeen && session?.demoApplied;
+
   const project = s.projects.find((p) => p.id === session?.projectId);
   if (!s.ready || !session)
     return (
@@ -562,7 +576,7 @@ export default function App() {
                   </button>
                 ))}
             </div>
-            {s.skipped && s.stage !== "completed" && !guided && (
+            {s.skipped && s.stage !== "completed" && (
               <button className="resume-card" onClick={s.resume}>
                 <Sparkles size={16} />
                 <span>
@@ -581,9 +595,11 @@ export default function App() {
                   <Terminal size={15} />
                 </span>
                 <span>
-                  <b>{project ? t("CLI 연결 확인") : t("체험 모드")}</b>
+                  <b>
+                    {project ? t("CLI 연결 확인") : t("프로젝트 연결 필요")}
+                  </b>
                   <small>
-                    {native ? t("내 컴퓨터에 저장 중") : t("브라우저 Demo")}
+                    {native ? t("내 컴퓨터에 저장 중") : t("브라우저 미리보기")}
                   </small>
                 </span>
                 <span className="status-dot" />
@@ -646,31 +662,6 @@ export default function App() {
                 {s.persistError}
               </div>
             )}
-            {guided && (
-              <div className="guided-banner">
-                <span>
-                  <Sparkles size={14} />
-                  {t("첫 임무 ·")}{" "}
-                  {run?.pending.length
-                    ? t("사본 편집을 허용해 보세요.")
-                    : readyToFinish
-                      ? t("첫 변경을 확인했어요!")
-                      : isTerminal(run?.status ?? "queued")
-                        ? t("변경안을 열고 예제에 적용해 보세요.")
-                        : t("작업 흐름을 함께 살펴봐요.")}
-                </span>
-                {readyToFinish ? (
-                  <button onClick={() => s.setStage("completed")}>
-                    {t("준비 완료")}
-                    <Check size={13} />
-                  </button>
-                ) : (
-                  <button onClick={() => s.setStage("completed")}>
-                    {t("안내 마치기")}
-                  </button>
-                )}
-              </div>
-            )}
             <div
               className="conversation"
               onScroll={(event) => {
@@ -717,7 +708,6 @@ export default function App() {
                 </p>
               )}
               <form className="composer" onSubmit={submit}>
-                <ExecutionControls />
                 {getSticker(draft.stickerId) && (
                   <div className="sticker-draft">
                     <StickerImage id={draft.stickerId} />
@@ -770,25 +760,13 @@ export default function App() {
                   <div>
                     <button
                       type="button"
-                      className="composer-engine"
-                      onClick={() => s.openSettings(true)}
-                    >
-                      <span className="engine-small">
-                        {project ? "C" : "✧"}
-                      </span>
-                      {project
-                        ? (session.execution?.provider ?? "codex")
-                        : "Demo"}
-                      <ChevronDown size={12} />
-                    </button>
-                    <button
-                      type="button"
                       className="sticker-trigger"
                       aria-haspopup="dialog"
                       aria-expanded={stickerOpen}
                       onClick={(event) => {
                         event.currentTarget.focus({ preventScroll: true });
                         pickedSticker.current = false;
+                        setAiSettingsOpen(false);
                         setStickerOpen(true);
                       }}
                     >
@@ -800,7 +778,14 @@ export default function App() {
                       />{" "}
                       {t("스티커")}
                     </button>
-                    <span className="toolbar-divider" />
+                    <ExecutionControls
+                      open={aiSettingsOpen}
+                      onToggle={() => {
+                        setStickerOpen(false);
+                        setAiSettingsOpen((value) => !value);
+                      }}
+                      onClose={() => setAiSettingsOpen(false)}
+                    />
                     <select
                       aria-label={t("실행 모드")}
                       value={s.settings.mode}
@@ -918,11 +903,9 @@ export default function App() {
             </header>
             {s.panel === "companion" && (
               <Companion
+                key={`companion:${s.activeId}`}
                 run={run}
-                onStart={() => {
-                  textarea.current?.focus();
-                  setInput(t("인사말을 더 친근하게 바꿔줘"));
-                }}
+                onStart={() => void s.openProject()}
               />
             )}
             <Artifacts

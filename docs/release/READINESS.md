@@ -3,7 +3,7 @@
 Target: **coipod/coi**, private. No binary releases or public visibility changes are authorized in this preparation stage.
 
 ## Required before public visibility
-- [ ] Owner provides a private operating/conduct contact approved for publication; update CODE_OF_CONDUCT and SECURITY.
+- [x] Owner approved coipoddev@gmail.com for security/conduct reports on 2026-09-22; CODE_OF_CONDUCT and SECURITY updated locally.
 - [ ] All required remote checks pass on the final revision and clean-clone validation is recorded.
 - [ ] Confirm repository protection/organization-plan restrictions noted in RESULTS.md.
 - [ ] Final public file, screenshot, license and secret review passes.

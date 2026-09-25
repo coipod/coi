@@ -1,8 +1,15 @@
-import { t } from "../lib/i18n";
+import { t, useLocale } from "../lib/i18n";
 import { CharacterRig } from "./CharacterRig";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useReducedMotion } from "../hooks/motion";
+import { useRevealedText } from "../hooks/revealedText";
 import { useApp } from "../stores/app";
-import { expressionFor, type Expression, type RunState } from "@coi/protocol";
+import {
+  isTerminal,
+  expressionFor,
+  type Expression,
+  type RunState,
+} from "@coi/protocol";
 const positions: Record<Expression, [number, number]> = {
   neutral: [0, 0],
   greeting: [1, 0],
@@ -55,21 +62,29 @@ export function Companion({
   run?: RunState;
   onStart: () => void;
 }) {
-  const { textSpeed, reducedMotion } = useApp((s) => s.settings);
+  const textSpeed = useApp((s) => s.settings.textSpeed);
+  const sessionId = useApp((s) => s.activeId);
+  const locale = useLocale((s) => s.locale);
+  const reducedMotion = useReducedMotion();
   const text = dialogue(run);
-  const [visible, setVisible] = useState(text.length);
-  useEffect(() => {
-    if (textSpeed === "instant" || reducedMotion) {
-      setVisible(text.length);
-      return;
-    }
-    setVisible(0);
-    const timer = setInterval(
-      () => setVisible((v) => Math.min(v + 1, text.length)),
-      textSpeed === "slow" ? 65 : 30,
-    );
-    return () => clearInterval(timer);
-  }, [text, textSpeed, reducedMotion]);
+  const [restored] = useState(() =>
+    run && isTerminal(run.status) ? run.runId : undefined,
+  );
+  const { displayed, revealing, revealAll } = useRevealedText(
+    text,
+    `${sessionId}:${locale}:${run?.runId ?? "welcome"}:${text}`,
+    {
+      instant:
+        reducedMotion ||
+        textSpeed === "instant" ||
+        (restored === run?.runId && !!run) ||
+        (!!run &&
+          (run.pending.length > 0 ||
+            run.status === "cancelled" ||
+            run.status === "failed")),
+      slow: textSpeed === "slow",
+    },
+  );
   return (
     <div className="companion">
       <div className="companion-eyebrow">
@@ -95,13 +110,10 @@ export function Companion({
           COI <span>{t("코이")}</span>
         </span>
         <p aria-live="polite" aria-label={text}>
-          <span aria-hidden="true">{text.slice(0, visible)}</span>
+          <span aria-hidden="true">{displayed}</span>
         </p>
-        {visible < text.length && (
-          <button
-            className="text-button"
-            onClick={() => setVisible(text.length)}
-          >
+        {revealing && (
+          <button className="text-button" onClick={revealAll}>
             {t("바로 표시")}
           </button>
         )}
@@ -111,7 +123,7 @@ export function Companion({
         <span className="tiny-label">OUR WORKSPACE</span>
         <p>{t("당신의 속도로, 함께 만들어요.")}</p>
         <button className="text-button" onClick={onStart}>
-          {t("작은 예제로 시작하기")}
+          {t("프로젝트 열기")}
           <span>↗</span>
         </button>
       </div>

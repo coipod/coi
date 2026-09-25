@@ -1,3 +1,4 @@
+import { createSnapshotWriter } from "../lib/snapshotWriter";
 import { t } from "../lib/i18n";
 import { getSticker, type StickerId } from "../lib/stickers";
 import {
@@ -17,7 +18,6 @@ import {
   type ApprovalRef,
   type DetectionResult,
 } from "@coi/protocol";
-import { DemoAdapter } from "../lib/demo";
 import { bridge, native, type Project } from "../lib/bridge";
 export type Stage =
   | "introduction"
@@ -94,20 +94,16 @@ interface State {
   send(prompt: string, stickerId?: StickerId): Promise<boolean>;
   decide(ref: ApprovalRef, decision: Decision): Promise<void>;
   stop(): Promise<void>;
-  demoApply(apply: boolean): void;
-  demoUndo(): void;
   setTaskCopy(sessionId: string, id: string): void;
   setApplication(sessionId: string, id: string | undefined): void;
 }
-let adapter: DemoAdapter | undefined;
-let persistChain = Promise.resolve();
 let initializing = false;
 const defaultSettings: Settings = {
   reducedMotion:
     typeof matchMedia === "function" &&
     matchMedia("(prefers-reduced-motion: reduce)").matches,
   highContrast: false,
-  textSpeed: "instant",
+  textSpeed: "normal",
   displayName: "",
   mode: "review_copy",
 };
@@ -492,7 +488,7 @@ export const useApp = create<State>((set, get) => ({
               : item,
           ),
         }));
-        await persistChain;
+        await snapshotWriter.flush();
         if (get().persistError) throw new Error(get().persistError!);
         const started = await bridge.startRun(
           {
@@ -572,64 +568,8 @@ export const useApp = create<State>((set, get) => ({
         return false;
       }
     }
-    adapter = new DemoAdapter();
-    const run = emptyRun(crypto.randomUUID(), session.id);
-    const messageId = crypto.randomUUID();
-    markMessageEntrance(messageId);
-    markMessageEntrance(run.runId);
-    set((s) => ({
-      activeRunId: run.runId,
-      sessions: s.sessions.map((x) =>
-        x.id === session.id
-          ? {
-              ...x,
-              title: x.messages.length ? x.title : prompt.slice(0, 30),
-              messages: [
-                ...x.messages,
-                {
-                  id: messageId,
-                  role: "user" as const,
-                  text: redact(prompt),
-                  stickerId,
-                  runId: run.runId,
-                },
-              ],
-              runs: [...x.runs, run],
-              demoApplied: false,
-              demoDeclined: false,
-            }
-          : x,
-      ),
-    }));
-    void adapter
-      .start(
-        {
-          runId: run.runId,
-          sessionId: session.id,
-          prompt,
-          mode: state.settings.mode,
-        },
-        (e) => {
-          set((s) => ({
-            sessions: s.sessions.map((x) =>
-              x.id === session.id
-                ? {
-                    ...x,
-                    runs: x.runs.map((r) =>
-                      r.runId === e.runId ? reduceEvent(r, e) : r,
-                    ),
-                  }
-                : x,
-            ),
-            ...(e.kind === "run_finished" ? { activeRunId: null } : {}),
-          }));
-        },
-      )
-      .catch((e) => {
-        set({ activeRunId: null });
-        get().notify(String(e));
-      });
-    return true;
+    get().notify(t("실행하려면 프로젝트 폴더를 먼저 열어 주세요."));
+    return false;
   },
   async decide(ref, decision) {
     const runId = get().activeRunId;
@@ -645,12 +585,6 @@ export const useApp = create<State>((set, get) => ({
         get().notify(String(error));
       }
       return;
-    }
-    if (!adapter) return;
-    try {
-      await adapter.resolveApproval(runId, ref, decision);
-    } catch (e) {
-      get().notify(String(e));
     }
   },
   async stop() {
@@ -673,50 +607,37 @@ export const useApp = create<State>((set, get) => ({
       }
       return;
     }
-    if (id && adapter) {
-      set((s) => ({
-        sessions: s.sessions.map((x) => ({
-          ...x,
-          runs: x.runs.map((r) =>
-            r.runId === id ? { ...r, status: "cancelling" } : r,
-          ),
-        })),
-      }));
-      await adapter.cancel(id);
-    }
-  },
-  demoApply(apply) {
-    if (!get().diffSeen) {
-      get().setPanel("artifact");
-      return;
-    }
-    set((s) => ({
-      sessions: s.sessions.map((x) =>
-        x.id === s.activeId
-          ? { ...x, demoApplied: apply, demoDeclined: !apply }
-          : x,
-      ),
-    }));
-    get().notify(
-      apply
-        ? t("Demo에 적용했어요. 실제 파일은 변경되지 않았어요.")
-        : t("변경안을 적용하지 않았어요. 언제든 다시 확인할 수 있어요."),
-    );
-  },
-  demoUndo() {
-    set((s) => ({
-      sessions: s.sessions.map((x) =>
-        x.id === s.activeId
-          ? { ...x, demoApplied: false, demoDeclined: false }
-          : x,
-      ),
-    }));
-    get().notify(t("Demo의 인사말을 이전 상태로 되돌렸어요."));
   },
 }));
-useApp.subscribe((state) => {
+const snapshotKeys = [
+  "sessions",
+  "projects",
+  "activeId",
+  "settings",
+  "stage",
+  "skipped",
+  "panel",
+  "panelWidth",
+] as const;
+const snapshotWriter = createSnapshotWriter(
+  (
+    snapshot: Pick<State, (typeof snapshotKeys)[number]> & { version: number },
+  ) => bridge.save(JSON.stringify(snapshot)),
+  () =>
+    useApp.setState({
+      persistError: t(
+        "로컬 저장에 실패했어요. 디스크 공간과 폴더 권한을 확인해 주세요.",
+      ),
+    }),
+);
+useApp.subscribe((state, previous) => {
   if (!state.ready || state.persistError) return;
-  const data = JSON.stringify({
+  if (
+    previous.ready &&
+    snapshotKeys.every((key) => state[key] === previous[key])
+  )
+    return;
+  snapshotWriter.schedule({
     version: 2,
     sessions: state.sessions,
     projects: state.projects,
@@ -727,16 +648,11 @@ useApp.subscribe((state) => {
     panel: state.panel,
     panelWidth: state.panelWidth,
   });
-  persistChain = persistChain
-    .then(() => bridge.save(data))
-    .catch(() => {
-      useApp.setState({
-        persistError: t(
-          "로컬 저장에 실패했어요. 디스크 공간과 폴더 권한을 확인해 주세요.",
-        ),
-      });
-    });
 });
+// Browser preview must also retain the last change when navigation beats the timer.
+if (typeof window !== "undefined") {
+  window.addEventListener("pagehide", () => void snapshotWriter.flush());
+}
 
 async function followNativeRun(runId: string, sessionId: string) {
   let failures = 0;

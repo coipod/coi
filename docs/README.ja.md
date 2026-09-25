@@ -1,10 +1,14 @@
 # COI — ローカルのコーディング作業室
 
-[English](../README.md) · [対応状況](STATUS.md)
+[English](../README.md) · [対応状況](STATUS.md) · [よくある質問](FAQ.ja.md)
 
-COIはキャラクターと一緒にコードの作成・確認を進めるデスクトップアプリです。英語が標準で、初回ガイドまたは **Workspace settings → Appearance & accessibility → Language** から日本語を選べます。
+**キャラクターと一緒に開発できる、オープンソースのコーディングワークスペース。**
 
-![日本語の作業室](screenshots/workspace-ja.png)
+対応するAI CLIを接続し、ステッカーで依頼を編集。変更は差分を確認してから反映します。英語が標準で、初回ガイドまたは **Workspace settings → Appearance & accessibility → Language** から日本語を選べます。
+
+![日本語UIのプレビュー：キャラクターとプロジェクト接続案内](screenshots/workspace-ja.png)
+
+*画面のプレビューです。実際の依頼にはデスクトップアプリと対応CLIが必要です。*
 
 ## はじめる
 
@@ -19,7 +23,7 @@ npm ci --legacy-peer-deps
 npm run dev
 ```
 
-`http://127.0.0.1:1420` を開くとデモを体験できます。デモは実際のCLI・AI・プロジェクトファイルを使いません。検証結果も模擬です。
+`http://127.0.0.1:1420` は画面のプレビュー専用です。リクエストの実行にはデスクトップアプリでプロジェクトフォルダを開き、対応CLIを接続してください。模擬実行機能はありません。
 
 デスクトップ版にはRust 1.93.1と[Tauriの前提条件](https://v2.tauri.app/start/prerequisites/)が必要です。`npm run dev`を止めてから`npm run desktop`を実行してください。macOSのローカルビルドは `npm run desktop:build -- --debug --bundles app` です。
 

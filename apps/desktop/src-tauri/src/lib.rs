@@ -160,9 +160,14 @@ fn load_snapshot(window: WebviewWindow, state: State<Core>) -> Result<Option<Str
     state.store.lock().map_err(|e| e.to_string())?.snapshot()
 }
 #[tauri::command]
-fn save_snapshot(window: WebviewWindow, state: State<Core>, data: String) -> Result<()> {
+async fn save_snapshot(window: WebviewWindow, state: State<'_, Core>, data: String) -> Result<()> {
     main_only(&window)?;
-    state.store.lock().map_err(|e| e.to_string())?.save(&data)
+    let store = state.store.clone();
+    tauri::async_runtime::spawn_blocking(move || {
+        store.lock().map_err(|e| e.to_string())?.save(&data)
+    })
+    .await
+    .map_err(|e| e.to_string())?
 }
 #[tauri::command]
 async fn provider_capabilities(
