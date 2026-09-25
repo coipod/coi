@@ -1,0 +1,10 @@
+{
+  "id": "coi-x-banner-20260926",
+  "path": "docs/launch/assets/x-banner.png",
+  "sha256": "0f5c3bb09f26c7671a57d47ae07d025d8317d1359f8153fd0acfcef82f9cb054",
+  "source": "OpenAI imagegen; generated 2026-09-26",
+  "reference": "apps/desktop/public/coi/sd/app-icon.png",
+  "license": "CC-BY-4.0",
+  "attribution": "COI contributors",
+  "prompt": "3:1 X profile banner; preserve reference silver-haired blue-eyed SD character, code hairpin and outfit. Pale icy-blue background, character right; lower-left clear for avatar. Text: COI / Your coding companion. / Open source \u00b7 Apple Silicon alpha. No fake UI or watermark."
+}

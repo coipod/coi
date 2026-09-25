@@ -14,6 +14,10 @@ Bring your supported AI coding CLI, edit a request with prompt stickers, and rev
 
 **Development alpha · source distribution.** There is no signed installer release. Live CLI execution is enabled only for the validated OS, architecture, CLI version and execution profile listed in [the support matrix](docs/STATUS.md). Other configurations can preview the interface in a browser; successful compilation does not imply live execution support.
 
+## Try it and tell us where you get stuck
+
+We are recruiting three first-time Apple Silicon testers using English or Japanese instructions. [Volunteer or report a setup problem](https://github.com/coipod/coi/issues/2). Source build and your own supported provider account are required; provider usage may cost money.
+
 ## What it does
 
 - Chat with COI on the left and your requests on the right. Six editable prompt stickers help you start a request without automatically sending it.
@@ -37,7 +41,7 @@ npm run dev
 
 Open `http://127.0.0.1:1420`. The browser previews the interface only. It cannot execute requests, invoke a CLI or modify project files. Use the desktop app, open a project folder and connect a supported CLI for real work.
 
-The repository is currently private during release preparation; cloning requires organization access.
+The repository is public. No organization membership is needed to clone it.
 
 ## Build the desktop app
 
